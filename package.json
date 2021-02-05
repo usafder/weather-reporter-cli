@@ -17,6 +17,8 @@
     "axios": "^0.21.1"
   },
   "dependencies": {
+    "colors": "^1.4.0",
+    "minimist": "^1.2.5",
     "ora": "^5.3.0"
   }
 }
