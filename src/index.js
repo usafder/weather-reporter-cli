@@ -17,7 +17,5 @@ const onSuccessCallback = (responseData) => {
   console.log(`Condition: ${responseData.condition}`);
 };
 
-apiClient.get(
-  `https://micro-weather.vercel.app?city=${args[0]}&country=${args[1]}`,
-  onSuccessCallback
-);
+const url = `https://micro-weather.vercel.app?city=${args[0]}&country=${args[1]}`;
+apiClient.get(url, onSuccessCallback);

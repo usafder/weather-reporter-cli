@@ -10,11 +10,7 @@ async function get(url, onSuccessCallback, onFailureCallback) {
     onSuccessCallback(response.data);
   } catch (error) {
     spinner.stop();
-    if (onFailureCallback) {
-      onFailureCallback(error);
-    } else {
-      console.trace(error.message);
-    }
+    onFailureCallback ? onFailureCallback(error) : console.trace(error.message);
   }
 }
 
