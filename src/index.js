@@ -1,21 +1,17 @@
 #!/usr/bin/env node
 
-const apiClient = require('./api/api-client.js');
-const args = process.argv.slice(2);
+const { commands } = require('./common/constants');
+const args = require('minimist')(process.argv.slice(2)); // ignore first two arguments
+const [command, city, country] = args._;
 
-if (args.length === 0) {
-  console.log('Please provide at least one argument.');
-  return;
+switch (command) {
+  case commands.REPORT:
+    require('./commands/report')(city, country);
+    break;
+  case commands.VERSION:
+    require('./commands/version')();
+    break;
+  default:
+    const colors = require('colors');
+    console.log(colors.red('Invalid command entered.'));
 }
-
-const onSuccessCallback = (responseData) => {
-  console.log(`Temperature: ${responseData.temp} celsius`);
-  console.log(`Min Temperature: ${responseData.temp_min} celsius`);
-  console.log(`Max Temperature: ${responseData.temp_max} celsius`);
-  console.log(`Feels like: ${responseData.feels_like} celsius`);
-  console.log(`Humidity: ${responseData.humidity}`);
-  console.log(`Condition: ${responseData.condition}`);
-};
-
-const url = `https://micro-weather.vercel.app?city=${args[0]}&country=${args[1]}`;
-apiClient.get(url, onSuccessCallback);
