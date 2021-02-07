@@ -9,12 +9,30 @@ module.exports = (city, country) => {
   const apiClient = require('../api/api-client');
   const url = `https://micro-weather.vercel.app?city=${city}&country=${country}`;
   const onSuccessCallback = (responseData) => {
-    console.log(`Temperature: ${responseData.temp} celsius`);
-    console.log(`Min Temperature: ${responseData.temp_min} celsius`);
-    console.log(`Max Temperature: ${responseData.temp_max} celsius`);
-    console.log(`Feels like: ${responseData.feels_like} celsius`);
-    console.log(`Humidity: ${responseData.humidity}`);
-    console.log(`Condition: ${responseData.condition}`);
+    const table = require('cli-table3');
+
+    const grid = new table({
+      head: [
+        'Temperature (°C)',
+        'Min Temperature (°C)',
+        'Max Temperature (°C)',
+        'Feels like (°C)',
+        'Humidity',
+        'Condition',
+      ],
+      style: { head: ['green'] },
+      colAligns: new Array(6).fill('center'),
+    });
+    const {
+      temp,
+      temp_min,
+      temp_max,
+      feels_like,
+      humidity,
+      condition,
+    } = responseData;
+    grid.push([temp, temp_min, temp_max, feels_like, humidity, condition]);
+    console.log(grid.toString());
   };
   apiClient.get(url, onSuccessCallback);
 };
