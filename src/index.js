@@ -11,6 +11,9 @@ switch (command) {
   case commands.VERSION:
     require('./commands/version')();
     break;
+  case commands.HELP:
+    require('./commands/help')();
+    break;
   default:
     const colors = require('colors');
     console.log(colors.red('Invalid command entered.'));
