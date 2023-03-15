@@ -1,6 +1,5 @@
 module.exports = () => {
   const table = require('cli-table3');
-  const colors = require('colors');
 
   const grid = new table({
     head: ['Command', 'Description'],
