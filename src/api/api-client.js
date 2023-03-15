@@ -10,7 +10,8 @@ async function get(url, onSuccessCallback, onFailureCallback) {
     onSuccessCallback(response.data);
   } catch (error) {
     spinner.stop();
-    onFailureCallback ? onFailureCallback(error) : console.trace(error.message);
+    const colors = require('colors');
+    onFailureCallback ? onFailureCallback(error) : console.trace(colors.red(error.message));
   }
 }
 
