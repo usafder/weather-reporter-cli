@@ -5,7 +5,7 @@ async function get(url, onSuccessCallback, onFailureCallback) {
   const spinner = ora().start('Loading data...');
 
   try {
-    const response = await axios.get(url);
+    const response = await axios.default.get(url);
     spinner.stop();
     onSuccessCallback(response.data);
   } catch (error) {
