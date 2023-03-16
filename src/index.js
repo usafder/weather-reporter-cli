@@ -2,11 +2,11 @@
 
 const { commands } = require('./common/constants');
 const args = require('minimist')(process.argv.slice(2)); // ignore first two arguments
-const [command, city, country] = args._;
+const [command, city] = args._;
 
 switch (command) {
   case commands.REPORT:
-    require('./commands/report')(city, country);
+    require('./commands/report')(city);
     break;
   case commands.VERSION:
     require('./commands/version')();
