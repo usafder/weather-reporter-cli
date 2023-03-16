@@ -1,5 +1,6 @@
 const axios = require('axios');
 const ora = require('ora');
+const colors = require('colors');
 
 async function get(url, onSuccessCallback, onFailureCallback) {
   const spinner = ora().start('Loading data...');
@@ -10,8 +11,11 @@ async function get(url, onSuccessCallback, onFailureCallback) {
     onSuccessCallback(response.data);
   } catch (error) {
     spinner.stop();
-    const colors = require('colors');
-    onFailureCallback ? onFailureCallback(error) : console.trace(colors.red(error.message));
+    if (onFailureCallback) {
+      onFailureCallback(error);
+      return;
+    }
+    console.trace(colors.red(error.message));
   }
 }
 

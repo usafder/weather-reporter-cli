@@ -1,20 +1,23 @@
 #!/usr/bin/env node
 
-const { commands } = require('./common/constants');
+const colors = require('colors');
 const args = require('minimist')(process.argv.slice(2)); // ignore first two arguments
-const [command, city] = args._;
+const { commands } = require('./common/constants');
+const reportCommand = require('./commands/report');
+const versionCommand = require('./commands/version');
+const helpCommand = require('./commands/help');
 
+const [command, city] = args._;
 switch (command) {
   case commands.REPORT:
-    require('./commands/report')(city);
+    reportCommand(city);
     break;
   case commands.VERSION:
-    require('./commands/version')();
+    versionCommand();
     break;
   case commands.HELP:
-    require('./commands/help')();
+    helpCommand();
     break;
   default:
-    const colors = require('colors');
     console.log(colors.red('Invalid command entered.'));
 }

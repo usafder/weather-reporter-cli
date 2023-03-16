@@ -1,16 +1,16 @@
+const colors = require('colors');
+const Table = require('cli-table3');
+const apiClient = require('../api/api-client');
+
 module.exports = (city) => {
   if (!city) {
-    const colors = require('colors');
     console.log(colors.red('Please mention the name of the city.'));
     return;
   }
 
-  const apiClient = require('../api/api-client');
   const url = `https://micro-weather.vercel.app?city=${city}&country=null`;
   const onSuccessCallback = (responseData) => {
-    const table = require('cli-table3');
-
-    const grid = new table({
+    const grid = new Table({
       head: [
         'Temperature (°C)',
         'Min Temperature (°C)',
@@ -24,13 +24,13 @@ module.exports = (city) => {
     });
     const {
       temp,
-      temp_min,
-      temp_max,
-      feels_like,
+      temp_min: minTemp,
+      temp_max: maxTemp,
+      feels_like: tempFeelsLike,
       humidity,
       condition,
     } = responseData;
-    grid.push([temp, temp_min, temp_max, feels_like, humidity, condition]);
+    grid.push([temp, minTemp, maxTemp, tempFeelsLike, humidity, condition]);
     console.log(grid.toString());
   };
   apiClient.get(url, onSuccessCallback);
